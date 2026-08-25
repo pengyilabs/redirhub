@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RedirHub Pricing — Infrastructure built for speed</title>
+<style>
+:root{
+  --rh-blue:#1C6DB6;--rh-blue-hover:#175A96;--rh-teal:#20A795;--rh-amber:#E59426;--rh-amber-hover:#CC7D1F;
+  --rh-dark:#101828;--rh-gray-700:#344054;--rh-gray-600:#475467;--rh-gray-500:#667085;--rh-gray-300:#D0D5DD;
+  --rh-gray-200:#EAECF0;--rh-gray-50:#F9FAFB;--rh-green:#039855;--rh-green-bg:#D1FADF;
+  --rh-tag-orange-bg:#FFF5E6;--rh-tag-orange-text:#B54708;--rh-tag-orange-border:#DC6803;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--rh-gray-50);color:var(--rh-gray-700);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;position:relative;isolation:isolate;
+}
+body::before{content:"";position:absolute;inset:0 0 auto 0;height:645px;background:linear-gradient(163deg,#1C6DB6 0%,#20A795 86%);z-index:-2}
+body::after{content:"";position:absolute;inset:0 0 auto 0;height:645px;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.075) 1px,transparent 1px);background-size:120px 120px;opacity:.3}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 20px 88px}
+
+/* Nav */
+.nav{display:flex;justify-content:space-between;align-items:center;height:118px;gap:32px}
+.brand{display:flex;gap:10px;align-items:center}
+.brand-logo{display:block;width:158px;height:auto}
+.nav-links{display:flex;gap:4px;flex:1;justify-content:center;font-size:15px;font-weight:650;color:#fff}
+.nav-links span{padding:11px 12px;border-radius:9px;white-space:nowrap;cursor:pointer}
+.nav-links span:hover{background:rgba(255,255,255,.12)}
+.nav-current{background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.35)}
+.nav-links b{font-size:15px;margin-left:6px}
+.nav-actions{display:flex;gap:14px}
+.nav-actions button{height:46px;border-radius:12px;padding:0 20px;color:#fff;font:600 15px/1 Inter,ui-sans-serif,sans-serif;cursor:pointer;transition:background .2s,border-color .2s}
+.login{background:transparent;border:1px solid rgba(255,255,255,.85)}
+.login:hover{background:rgba(255,255,255,.1)}
+.start-free{background:var(--rh-amber);border:1.5px solid var(--rh-amber)}
+.start-free:hover{background:var(--rh-amber-hover);border-color:var(--rh-amber-hover)}
+
+/* Hero */
+.hero{text-align:center;max-width:900px;margin:0 auto;padding:36px 0 154px;color:#fff}
+.kicker{display:none}
+.hero h1{font-size:clamp(38px,4vw,51px);font-weight:700;letter-spacing:-.045em;line-height:1.12;margin:0 0 15px}
+.hero p{font-size:18px;font-weight:500;line-height:1.5;max-width:720px;margin:0 auto;color:#fff}
+
+/* Billing */
+.billing{display:flex;justify-content:flex-end;margin:-92px 0 20px;position:relative;z-index:2}
+.switch{display:flex;padding:4px;border-radius:12px;border:1px solid var(--rh-gray-200);background:rgba(255,255,255,.95);box-shadow:0 1px 2px rgba(10,13,18,.05)}
+.switch button{border:0;background:transparent;border-radius:8px;padding:10px 14px;color:var(--rh-gray-500);font:600 14px/1 Inter,ui-sans-serif,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.switch button.active{background:#fff;color:var(--rh-gray-700);box-shadow:0 1px 2px rgba(10,13,18,.05);outline:1px solid var(--rh-gray-300)}
+.save{padding:2px 7px;background:#ECFDF3;border:1px solid #ABEFC6;border-radius:999px;color:#067647;font-size:11px;font-weight:600}
+
+/* Pricing grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px;background:#fff;border:1px solid #E4E7EC;border-radius:32px;box-shadow:0 20px 24px -4px rgba(16,24,40,.08);align-items:stretch;position:relative;z-index:1}
+.plan{border:1.8px solid #D5D7DA;border-radius:24px;box-shadow:none;overflow:visible;transition:box-shadow .2s,transform .2s}
+.plan:hover{box-shadow:0 8px 24px rgba(16,24,40,.1)}
+.plan.pro{border:1.8px solid var(--rh-amber);background:#FFF4ED;box-shadow:0 12px 16px -4px rgba(16,24,40,.08),0 4px 6px -2px rgba(16,24,40,.03)}
+.plan-head,.plan.pro .plan-head{padding:28px 30px 24px;background:transparent;border-bottom:1px solid var(--rh-gray-200)}
+.plan-top{display:flex;justify-content:space-between;align-items:center}
+.plan-name{font-size:22px;font-weight:740;letter-spacing:-.025em;color:var(--rh-gray-700)}
+.tag{background:var(--rh-tag-orange-bg);color:var(--rh-tag-orange-text);border:1.5px solid var(--rh-tag-orange-border);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:700;letter-spacing:.01em}
+.price{font-size:44px;font-weight:760;line-height:1.05;letter-spacing:-.044em;margin:22px 0 8px;color:var(--rh-gray-700)}
+.price small{font-size:14px;font-weight:500;color:var(--rh-gray-500);letter-spacing:0}
+.price[style]{font-size:34px!important;letter-spacing:-.035em!important}
+.desc{height:48px;font-size:14px;line-height:1.45;color:var(--rh-gray-600)}
+.cta{width:100%;margin-top:24px;padding:15px;border-radius:14px;border:1.5px solid var(--rh-gray-300);background:#fff;color:var(--rh-gray-700);font:720 15px/1 Inter,ui-sans-serif,sans-serif;cursor:pointer;transition:all .2s}
+.cta::after{content:'  →';font-size:18px;margin-left:8px}
+.cta:hover{background:#fff;border-color:var(--rh-blue);color:var(--rh-blue);box-shadow:0 4px 12px rgba(28,109,182,.12)}
+.pro .cta{background:var(--rh-amber);border-color:var(--rh-amber);color:#fff}
+.pro .cta:hover{background:var(--rh-amber-hover);border-color:var(--rh-amber-hover);color:#fff}
+
+/* Features */
+.body{padding:16px 30px 30px}
+.group-title{padding:17px 0 7px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--rh-gray-700)}
+.row{position:relative;padding:15px 0;border-bottom:1px solid var(--rh-gray-200);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.row-title{font-size:14px;font-weight:720;color:var(--rh-gray-700)}
+.row-sub{font-size:12px;color:var(--rh-gray-500);margin-top:4px;line-height:1.42}
+.action{border:0;background:none;color:var(--rh-blue);font-size:12px;font-weight:750;cursor:pointer;padding:2px 0;white-space:nowrap;border-bottom:1px solid transparent;transition:border-color .15s}
+.action:hover{border-color:currentColor;text-decoration:none}
+
+/* Flyout */
+.flyout{display:none;position:absolute;z-index:20;right:-8px;top:50px;width:405px;background:#fff;border:1px solid var(--rh-gray-300);border-radius:14px;box-shadow:0 24px 70px rgba(28,45,57,.16);overflow:hidden}
+.flyout.show{display:block}
+.fly-head{padding:14px 15px 11px;background:#fbfcfd;border-bottom:1px solid var(--rh-gray-200)}
+.fly-head strong{display:block;font-size:13px;font-weight:700}
+.fly-head span{display:block;color:var(--rh-gray-500);font-size:11px;margin-top:3px;line-height:1.4}
+.option{display:grid;grid-template-columns:1.06fr .95fr auto;gap:10px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--rh-gray-200)}
+.option:last-child{border-bottom:0}
+.option:hover{background:#fbfdfe}
+.qty{font-size:13px;font-weight:760}
+.total{font-size:12px;color:var(--rh-gray-500)}
+.radio-choice{display:flex;align-items:center}
+.radio-choice input[type=radio]{appearance:none;width:18px;height:18px;border:1.5px solid var(--rh-gray-300);border-radius:50%;cursor:pointer;position:relative;transition:all .15s}
+.radio-choice input[type=radio]:checked{border-color:var(--rh-blue);background:var(--rh-blue)}
+.radio-choice input[type=radio]:checked::after{content:"";position:absolute;top:50%;left:50%;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%)}
+
+/* Feature checkmarks */
+.feature{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:15px;color:var(--rh-gray-700);line-height:1.35}
+.check{width:20px;height:20px;border-radius:50%;background:var(--rh-green-bg);color:var(--rh-green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex:0 0 auto;margin-top:1px}
+
+/* Compare note */
+.compare-note{margin:28px 0 0;background:#fff;border:1px solid var(--rh-gray-300);border-left:4px solid var(--rh-amber);border-radius:14px;padding:16px 18px;color:var(--rh-gray-500);font-size:12px;line-height:1.5}
+
+/* Performance section */
+.perf-section{margin:56px 0 0;position:relative;z-index:1}
+.perf-section h2{font-size:32px;font-weight:740;letter-spacing:-.035em;color:var(--rh-dark);margin:0 0 8px}
+.perf-section>p{font-size:16px;color:var(--rh-gray-600);margin:0 0 32px;line-height:1.5}
+.perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.perf-card{background:#fff;border:1px solid var(--rh-gray-300);border-radius:24px;padding:36px 32px;text-align:center;transition:box-shadow .2s,transform .2s}
+.perf-card:hover{box-shadow:0 8px 24px rgba(16,24,40,.08);transform:translateY(-2px)}
+.perf-stat{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,var(--rh-blue),var(--rh-teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.perf-label{font-size:15px;font-weight:600;color:var(--rh-gray-700);margin-bottom:8px}
+.perf-desc{font-size:13px;color:var(--rh-gray-500);line-height:1.45}
+
+/* Developer section */
+.dev-section{margin:56px 0 0;position:relative;z-index:1}
+.dev-section h2{font-size:32px;font-weight:740;letter-spacing:-.035em;color:var(--rh-dark);margin:0 0 8px}
+.dev-section>p{font-size:16px;color:var(--rh-gray-600);margin:0 0 32px;line-height:1.5}
+.dev-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.dev-card{background:#fff;border:1px solid var(--rh-gray-300);border-radius:24px;padding:32px 28px;transition:box-shadow .2s,transform .2s}
+.dev-card:hover{box-shadow:0 8px 24px rgba(16,24,40,.08);transform:translateY(-2px)}
+.dev-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:20px;font-size:24px}
+.dev-icon.api{background:#E8F1F9;color:var(--rh-blue)}
+.dev-icon.bulk{background:#D1FADF;color:var(--rh-green)}
+.dev-icon.webhook{background:#FFF5E6;color:var(--rh-amber)}
+.dev-icon.sdk{background:#F4EBFF;color:#7C3AED}
+.dev-card h3{font-size:17px;font-weight:740;letter-spacing:-.02em;color:var(--rh-dark);margin:0 0 8px}
+.dev-card p{font-size:14px;color:var(--rh-gray-600);line-height:1.45;margin:0}
+.dev-card code{display:inline-block;margin-top:10px;padding:4px 8px;background:var(--rh-gray-50);border:1px solid var(--rh-gray-200);border-radius:6px;font-family:"SF Mono",Monaco,Consolas,monospace;font-size:12px;color:var(--rh-gray-700);font-weight:600}
+
+/* Pro Add-ons */
+.pro-addons{margin:56px 0 0;position:relative;z-index:1}
+.addons-heading h2{font-size:32px;font-weight:740;letter-spacing:-.035em;color:var(--rh-dark);margin:0 0 8px}
+.addons-heading>p{font-size:16px;color:var(--rh-gray-600);margin:0 0 32px;line-height:1.5}
+.addons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.addon-card{background:#fff;border:1px solid var(--rh-gray-300);border-radius:24px;padding:28px;transition:box-shadow .2s,transform .2s}
+.addon-card:hover{box-shadow:0 8px 24px rgba(16,24,40,.08);transform:translateY(-2px)}
+.addon-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.addon-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--rh-gray-50);border:1px solid var(--rh-gray-200);flex-shrink:0}
+.addon-icon svg{width:22px;height:22px;color:var(--rh-blue)}
+.addon-card-price{display:flex;align-items:baseline;gap:4px}
+.addon-card-price span{font-size:22px;font-weight:740;color:var(--rh-dark);letter-spacing:-.025em}
+.addon-card-price small{font-size:13px;font-weight:500;color:var(--rh-gray-500)}
+.addon-card h3{font-size:16px;font-weight:740;color:var(--rh-dark);margin:0 0 6px;letter-spacing:-.015em}
+.addon-card p{font-size:13px;color:var(--rh-gray-600);line-height:1.45;margin:0}
+
+/* Toast */
+.toast{position:fixed;right:24px;bottom:24px;background:var(--rh-dark);color:#fff;border-radius:10px;padding:12px 15px;font:750 12px/1.4 Inter,ui-sans-serif,sans-serif;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;box-shadow:0 12px 36px rgba(0,0,0,.18);z-index:100}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* Responsive */
+@media(max-width:1100px){
+  .nav-links{gap:2px;font-size:14px}.nav-actions button{padding:0 15px}
+  .grid{padding:32px;gap:18px}
+  .dev-grid{grid-template-columns:repeat(2,1fr)}
+  .addons-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:800px){
+  body::before,body::after{height:530px}
+  .shell{padding:0 16px 60px}
+  .nav{height:86px}.nav-actions{display:none}.nav-links{display:none}.brand-logo{width:145px}
+  .hero{padding:34px 0 126px}.hero h1{font-size:39px}.hero p{font-size:16px}
+  .billing{justify-content:center;margin:-74px 0 18px}
+  .grid{padding:16px;border-radius:20px;grid-template-columns:1fr}
+  .plan-head,.plan.pro .plan-head{padding:22px}
+  .body{padding:14px 22px 23px}
+  .perf-grid{grid-template-columns:1fr}
+  .dev-grid{grid-template-columns:1fr}
+  .addons-grid{grid-template-columns:1fr}
+  .perf-stat{font-size:40px}
+  .flyout{right:0;width:min(405px,calc(100vw - 48px))}
+}
+@media(max-width:980px){
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="nav">
+    <div class="brand"><img class="brand-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='158' height='32' viewBox='0 0 158 32'%3E%3Crect x='1' y='1' width='24' height='24' rx='6' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3Cpath d='M7 11l7 5-7 5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 14h7' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3Ctext x='32' y='22' fill='%23fff' font-family='Inter,system-ui,sans-serif' font-size='18' font-weight='800' letter-spacing='-.025em'%3ERedirHub%3C/text%3E%3C/svg%3E" alt="RedirHub"/></div>
+    <div class="nav-links">
+      <span>Features <b>⌄</b></span>
+      <span>Solutions <b>⌄</b></span>
+      <span class="nav-current">Pricing</span>
+      <span>Support</span>
+      <span>Enterprise</span>
+    </div>
+    <div class="nav-actions">
+      <button class="login">Login</button>
+      <button class="start-free">Start for Free</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Simple pricing that scales</div>
+    <h1>Infrastructure built for speed.</h1>
+    <p>90ms average latency. 100M+ redirects daily. API-first architecture for teams that move fast.</p>
+  </div>
+
+  <div class="billing">
+    <div class="switch">
+      <button id="monthly" class="active">Monthly</button>
+      <button id="annual">Annual <span class="save">2 months free</span></button>
+    </div>
+  </div>
+
+  <main class="grid">
+    <section class="plan" data-plan="Core">
+      <div class="plan-head">
+        <div class="plan-top"><div class="plan-name">Core</div></div>
+        <div class="price" data-monthly="49" data-base-monthly="49">$49 <small>/ month</small></div>
+        <div class="desc">For teams running reliable redirects, branded links, QR codes and migrations.</div>
+        <button class="cta">Get started with Core</button>
+      </div>
+      <div class="body">
+        <div class="group-title">Included capacity</div>
+
+        <div class="row">
+          <div>
+            <div class="row-title">25 domains</div>
+            <div class="row-sub">Connected domains with automatic HTTPS.</div>
+          </div>
+          <button class="action" onclick="toggleFlyout('coreDomains')">Volume pricing</button>
+          <div class="flyout" id="coreDomains">
+            <div class="fly-head">
+              <strong>Domain capacity</strong>
+              <span>Select a larger capacity only if you need it. The selected tier replaces your current domain capacity.</span>
+            </div>
+            <div class="option"><div class="qty">25 domains</div><div class="total">Included</div><label class="radio-choice"><input type="radio" name="coreDomains" data-increment="0" checked onclick="applyTier(event,'Core','25 domains','+$0/mo')"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">100 domains</div><div class="total">+$40/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','100 domains','+$40/mo')" data-increment="40"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">250 domains</div><div class="total">+$60/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','250 domains','+$60/mo')" data-increment="60"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">500 domains</div><div class="total">+$120/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','500 domains','+$120/mo')" data-increment="120"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">1,000 domains</div><div class="total">+$200/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','1,000 domains','+$200/mo')" data-increment="200"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">2,500 domains</div><div class="total">+$300/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','2,500 domains','+$300/mo')" data-increment="300"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">5,000 domains</div><div class="total">+$400/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','5,000 domains','+$400/mo')" data-increment="400"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">10,000 domains</div><div class="total">+$550/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','10,000 domains','+$550/mo')" data-increment="550"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">25,000 domains</div><div class="total">+$850/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','25,000 domains','+$850/mo')" data-increment="850"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">50,000 domains</div><div class="total">+$1,300/mo</div><label class="radio-choice"><input type="radio" name="coreDomains" onclick="applyTier(event,'Core','50,000 domains','+$1,300/mo')" data-increment="1300"/><span aria-hidden="true"></span></label></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <div class="row-title">2,500 managed links</div>
+            <div class="row-sub">Active branded links, QR codes, and migration mappings.</div>
+          </div>
+          <button class="action" onclick="toggleFlyout('coreLinks')">Volume pricing</button>
+          <div class="flyout" id="coreLinks">
+            <div class="fly-head">
+              <strong>Managed link capacity</strong>
+              <span>Branded links, dynamic QR destinations and explicit URL mappings share this capacity.</span>
+            </div>
+            <div class="option"><div class="qty">2,500 links</div><div class="total">Included</div><label class="radio-choice"><input type="radio" name="coreLinks" data-increment="0" checked onclick="applyTier(event,'Core','2,500 managed links','+$0/mo')"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">10,000 links</div><div class="total">+$40/mo</div><label class="radio-choice"><input type="radio" name="coreLinks" onclick="applyTier(event,'Core','10,000 managed links','+$40/mo')" data-increment="40"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">50,000 links</div><div class="total">+$130/mo</div><label class="radio-choice"><input type="radio" name="coreLinks" onclick="applyTier(event,'Core','50,000 managed links','+$130/mo')" data-increment="130"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">250,000 links</div><div class="total">+$350/mo</div><label class="radio-choice"><input type="radio" name="coreLinks" onclick="applyTier(event,'Core','250,000 managed links','+$350/mo')" data-increment="350"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">1M links</div><div class="total">+$750/mo</div><label class="radio-choice"><input type="radio" name="coreLinks" onclick="applyTier(event,'Core','1M managed links','+$750/mo')" data-increment="750"/><span aria-hidden="true"></span></label></div>
+          </div>
+        </div>
+
+        <div class="group-title">Core capabilities</div>
+        <div class="feature"><span class="check">✓</span><span>Domain redirects + automatic HTTPS</span></div>
+        <div class="feature"><span class="check">✓</span><span>Branded links + dynamic QR codes</span></div>
+        <div class="feature"><span class="check">✓</span><span>Website migration mappings</span></div>
+        <div class="feature"><span class="check">✓</span><span>Bulk management + API / MCP</span></div>
+        <div class="feature"><span class="check">✓</span><span>90 days of click &amp; scan data</span></div>
+      </div>
+    </section>
+
+    <section class="plan pro" data-plan="Pro">
+      <div class="plan-head">
+        <div class="plan-top"><div class="plan-name">Pro</div><div class="tag">Recommended</div></div>
+        <div class="price" data-monthly="119" data-base-monthly="119">$119 <small>/ month</small></div>
+        <div class="desc">More capacity plus monitoring, analytics and control for business-critical infrastructure.</div>
+        <button class="cta">Upgrade to Pro</button>
+      </div>
+      <div class="body">
+        <div class="group-title">Included capacity</div>
+
+        <div class="row">
+          <div>
+            <div class="row-title">250 domains</div>
+            <div class="row-sub">10× Core's included domain capacity.</div>
+          </div>
+          <button class="action" onclick="toggleFlyout('proDomains')">Volume pricing</button>
+          <div class="flyout" id="proDomains">
+            <div class="fly-head">
+              <strong>Pro domain capacity</strong>
+              <span>Higher tiers include the monitoring and observability overhead of larger domain portfolios.</span>
+            </div>
+            <div class="option"><div class="qty">250 domains</div><div class="total">Included</div><label class="radio-choice"><input type="radio" name="proDomains" data-increment="0" checked onclick="applyTier(event,'Pro','250 domains','+$0/mo')"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">500 domains</div><div class="total">+$80/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','500 domains','+$80/mo')" data-increment="80"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">1,000 domains</div><div class="total">+$230/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','1,000 domains','+$230/mo')" data-increment="230"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">2,500 domains</div><div class="total">+$380/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','2,500 domains','+$380/mo')" data-increment="380"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">5,000 domains</div><div class="total">+$530/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','5,000 domains','+$530/mo')" data-increment="530"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">10,000 domains</div><div class="total">+$730/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','10,000 domains','+$730/mo')" data-increment="730"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">25,000 domains</div><div class="total">+$1,130/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','25,000 domains','+$1,130/mo')" data-increment="1130"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">50,000 domains</div><div class="total">+$1,730/mo</div><label class="radio-choice"><input type="radio" name="proDomains" onclick="applyTier(event,'Pro','50,000 domains','+$1,730/mo')" data-increment="1730"/><span aria-hidden="true"></span></label></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <div class="row-title">10,000 managed links</div>
+            <div class="row-sub">4× Core's included link capacity.</div>
+          </div>
+          <button class="action" onclick="toggleFlyout('proLinks')">Volume pricing</button>
+          <div class="flyout" id="proLinks">
+            <div class="fly-head">
+              <strong>Pro managed link capacity</strong>
+              <span>Higher link capacity with advanced analytics and control.</span>
+            </div>
+            <div class="option"><div class="qty">10,000 links</div><div class="total">Included</div><label class="radio-choice"><input type="radio" name="proLinks" data-increment="0" checked onclick="applyTier(event,'Pro','10,000 managed links','+$0/mo')"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">50,000 links</div><div class="total">+$130/mo</div><label class="radio-choice"><input type="radio" name="proLinks" onclick="applyTier(event,'Pro','50,000 managed links','+$130/mo')" data-increment="130"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">250,000 links</div><div class="total">+$380/mo</div><label class="radio-choice"><input type="radio" name="proLinks" onclick="applyTier(event,'Pro','250,000 managed links','+$380/mo')" data-increment="380"/><span aria-hidden="true"></span></label></div>
+            <div class="option"><div class="qty">1M links</div><div class="total">+$830/mo</div><label class="radio-choice"><input type="radio" name="proLinks" onclick="applyTier(event,'Pro','1M managed links','+$830/mo')" data-increment="830"/><span aria-hidden="true"></span></label></div>
+          </div>
+        </div>
+
+        <div class="group-title">Everything in Core, plus</div>
+        <div class="feature"><span class="check">✓</span><span>6 months of click &amp; scan data</span></div>
+        <div class="feature"><span class="check">✓</span><span>Destination monitoring + alerts</span></div>
+        <div class="feature"><span class="check">✓</span><span>Raw logs + advanced visibility</span></div>
+        <div class="feature"><span class="check">✓</span><span>Advanced routing + controls</span></div>
+        <div class="feature"><span class="check">✓</span><span>More collaboration and permissions</span></div>
+      </div>
+    </section>
+
+    <section class="plan">
+      <div class="plan-head">
+        <div class="plan-top"><div class="plan-name">Enterprise</div><div class="tag">Custom</div></div>
+        <div class="price" style="font-size:34px;letter-spacing:-.035em">Let's talk</div>
+        <div class="desc">For very large portfolios, high traffic, advanced security and tailored infrastructure.</div>
+        <button class="cta">Contact sales</button>
+      </div>
+      <div class="body">
+        <div class="group-title">Capacity</div>
+        <div class="row">
+          <div>
+            <div class="row-title">Tailored to your portfolio</div>
+            <div class="row-sub">Domains, managed links, and traffic capacity agreed for your operating requirements.</div>
+          </div>
+        </div>
+
+        <div class="group-title">Everything in Pro, plus</div>
+        <div class="feature"><span class="check">✓</span><span>Dedicated infrastructure + custom traffic agreements</span></div>
+        <div class="feature"><span class="check">✓</span><span>Enterprise SLA + priority support</span></div>
+        <div class="feature"><span class="check">✓</span><span>SSO / SAML + advanced access control</span></div>
+        <div class="feature"><span class="check">✓</span><span>Security review + tailored procurement</span></div>
+        <div class="feature"><span class="check">✓</span><span>Dedicated onboarding + migration support</span></div>
+        <div class="feature"><span class="check">✓</span><span>Custom billing and contract terms</span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Why RedirHub — Performance Stats -->
+  <section class="perf-section" aria-labelledby="perf-title">
+    <h2 id="perf-title">Why RedirHub</h2>
+    <p>Performance benchmarks that matter. Numbers, not promises.</p>
+    <div class="perf-grid">
+      <div class="perf-card">
+        <div class="perf-stat">90ms</div>
+        <div class="perf-label">Average latency</div>
+        <div class="perf-desc">3× faster than the industry average of 300ms+. Your redirects resolve before your users notice.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-stat">100M+</div>
+        <div class="perf-label">Redirects processed daily</div>
+        <div class="perf-desc">Battle-tested at scale. Infrastructure that handles traffic spikes without breaking a sweat.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-stat">99.99%</div>
+        <div class="perf-label">Uptime SLA</div>
+        <div class="perf-desc">Enterprise-grade reliability backed by a contractual SLA. Your links stay live, always.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer Experience -->
+  <section class="dev-section" aria-labelledby="dev-title">
+    <h2 id="dev-title">Built for developers</h2>
+    <p>API-first architecture with the tooling your team already uses.</p>
+    <div class="dev-grid">
+      <div class="dev-card">
+        <div class="dev-icon api">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M4 12h11"/><rect x="15" y="4" width="5" height="16" rx="1.5"/></svg>
+        </div>
+        <h3>API-first</h3>
+        <p>REST API + MCP server for full programmatic control of every redirect, domain, and link.</p>
+        <code>/api/v1/redirects</code>
+      </div>
+      <div class="dev-card">
+        <div class="dev-icon bulk">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M8 7h.01M8 17h.01M12 7h5M12 17h5"/></svg>
+        </div>
+        <h3>Bulk operations</h3>
+        <p>CSV import/export for managing thousands of redirects in a single operation.</p>
+        <code>POST /api/v1/bulk</code>
+      </div>
+      <div class="dev-card">
+        <div class="dev-icon webhook">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10l4 4"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h3>Webhooks</h3>
+        <p>Real-time event notifications for link clicks, redirects, domain changes, and errors.</p>
+        <code>Webhook: redirect.completed</code>
+      </div>
+      <div class="dev-card">
+        <div class="dev-icon sdk">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+        </div>
+        <h3>SDKs</h3>
+        <p>Official client libraries for JavaScript, Python, and Go. Type-safe, well-documented.</p>
+        <code>npm install @redirhub/sdk</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-ons -->
+  <section class="pro-addons" aria-labelledby="pro-addons-title">
+    <div class="addons-heading">
+      <h2 id="pro-addons-title">Pro Add-Ons</h2>
+      <p>Enhance your Pro plan with powerful features.</p>
+    </div>
+    <div class="addons-grid">
+      <article class="addon-card">
+        <div class="addon-card-top"><span class="addon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17l5-5-5-5"/><path d="M4 12h11"/><rect x="15" y="4" width="5" height="16" rx="1.5"/></svg></span><div class="addon-card-price"><span>$ 200</span><small>/mo</small></div></div>
+        <h3>Single Sign-On (SSO)</h3><p>Team login through your organization account using SAML authentication.</p>
+      </article>
+      <article class="addon-card">
+        <div class="addon-card-top"><span class="addon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="2"/><rect x="4" y="14" width="16" height="6" rx="2"/><path d="M8 7h.01M8 17h.01M12 7h5M12 17h5"/></svg></span><div class="addon-card-price"><span>$ 100</span><small>/mo</small></div></div>
+        <h3>Custom Name Servers</h3><p>Delegate redirect domains to RedirHub through dedicated nameservers, so your portfolio can be managed without per-record DNS setup.</p>
+      </article>
+      <article class="addon-card">
+        <div class="addon-card-top"><span class="addon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.3 2.7-6 6-6h4c3.3 0 6 2.7 6 6"/><path d="M4 17c-1.3.6-2 1.7-2 3M20 17c1.3.6 2 1.7 2 3"/></svg></span><div class="addon-card-price"><span>$ 300</span><small>/mo</small></div></div>
+        <h3>Dedicated Cluster</h3><p>Dedicated edge capacity for high-volume domain portfolios, with redirect routing configured for your operating requirements.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="compare-note">
+    Volume capacity is intentionally secondary. Most customers can choose Core or Pro without opening these controls. Pro is the recommended choice for business-critical redirect infrastructure. Larger customers can expand a single dimension directly, while annual billing uses the same simple rule: pay for 10 months and receive 12.
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let annualMode=false;
+const monthly=document.getElementById('monthly');
+const annual=document.getElementById('annual');
+
+monthly.onclick=()=>{annualMode=false;monthly.classList.add('active');annual.classList.remove('active');renderPrices();};
+annual.onclick=()=>{annualMode=true;annual.classList.add('active');monthly.classList.remove('active');renderPrices();};
+
+function renderPrices(){
+  document.querySelectorAll('.price[data-monthly]').forEach(el=>{
+    const p=Number(el.dataset.monthly);
+    if(!Number.isFinite(p)) return;
+    if(!annualMode){
+      el.innerHTML=`$${p} <small>/ month</small>`;
+    }else{
+      const yearly=p*10;
+      const effective=(yearly/12).toFixed(0);
+      el.innerHTML=`$${effective} <small>/ month · billed $${yearly}/year</small>`;
+    }
+  });
+}
+function toggleFlyout(id){
+  document.querySelectorAll('.flyout').forEach(x=>{if(x.id!==id)x.classList.remove('show')});
+  document.getElementById(id).classList.toggle('show');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.row')) document.querySelectorAll('.flyout').forEach(x=>x.classList.remove('show'));
+});
+const capacityState={Core:{coreDomains:0,coreLinks:0},Pro:{proDomains:0,proLinks:0}};
+function updatePlanPrice(plan){
+  const priceEl=document.querySelector(`.plan[data-plan="${plan}"] .price[data-base-monthly]`);
+  const total=Number(priceEl.dataset.baseMonthly)+Object.values(capacityState[plan]).reduce((sum,value)=>sum+value,0);
+  priceEl.dataset.monthly=String(total);
+  renderPrices();
+  return total;
+}
+function applyTier(e,plan,capacity,price){
+  e.stopPropagation();
+  capacityState[plan][e.target.name]=Number(e.target.dataset.increment||0);
+  const total=updatePlanPrice(plan);
+  const toast=document.getElementById('toast');
+  toast.textContent=`${plan} · ${capacity} · ${price} · $${total}/mo plan`;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2100);
+}
+</script>
+</body>
+</html>

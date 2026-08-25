@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RedirHub Competitive Analysis — URL Redirect Market 2026</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --fg: #111111;
+      --muted: #6b7280;
+      --border: #d9dee7;
+      --accent: #1677ff;
+      --accent-soft: color-mix(in oklch, var(--accent) 10%, transparent);
+      --fg-soft: color-mix(in oklch, var(--fg) 5%, transparent);
+      --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+      --fs-h1: clamp(36px, 5vw, 56px);
+      --fs-h2: clamp(28px, 3.5vw, 40px);
+      --fs-h3: 20px;
+      --fs-lead: 18px;
+      --fs-body: 15px;
+      --fs-meta: 13px;
+      --gap-sm: 12px;
+      --gap-md: 20px;
+      --gap-lg: 32px;
+      --gap-xl: 56px;
+      --gap-2xl: 80px;
+      --container: 1080px;
+      --gutter: 32px;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    p { text-wrap: pretty; }
+    h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+    .container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+    .section { padding-block: clamp(48px, 8vw, var(--gap-2xl)); }
+    .section + .section { border-top: 1px solid var(--border); }
+    .stack { display: flex; flex-direction: column; }
+    .stack > * + * { margin-top: var(--gap-md); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-lg); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-lg); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap-md); }
+    @media (max-width: 920px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--gap-md);
+    }
+    .lead { font-size: var(--fs-lead); line-height: 1.55; color: var(--muted); max-width: 60ch; margin: 0; }
+    .meta { font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--muted); }
+    .topnav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in oklch, var(--bg) 92%, transparent);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: 14px; }
+    .topnav .logo { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+    .topnav nav { display: flex; gap: var(--gap-lg); }
+    .topnav nav a { font-size: 14px; color: var(--muted); }
+    .topnav nav a:hover { color: var(--fg); }
+    .pagefoot { padding-block: var(--gap-xl); color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+    .pagefoot .row-between { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-md); flex-wrap: wrap; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .stat .stat-num {
+      font-family: var(--font-body);
+      font-size: clamp(40px, 6vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .stat .stat-label { color: var(--muted); font-size: 14px; margin-top: 6px; }
+    .stat .stat-unit { font-size: 0.5em; opacity: 0.7; margin-left: 2px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .ds-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .ds-table th, .ds-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+    .ds-table th { color: var(--muted); font-weight: 500; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .ds-table tbody tr:hover { background: var(--fg-soft); }
+    .ds-table .num-col { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+    .ds-table .brand-col { font-weight: 600; white-space: nowrap; }
+    .highlight-row { background: var(--accent-soft) !important; }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: var(--font-mono);
+    }
+    .tag-free { background: #e6f4ff; color: #1677ff; }
+    .tag-mid  { background: #fff7e6; color: #d48806; }
+    .tag-high { background: #f6ffed; color: #389e0d; }
+    .tag-ent  { background: #f9f0ff; color: #722ed1; }
+    .section-title { font-size: var(--fs-h2); letter-spacing: -0.015em; margin-bottom: var(--gap-lg); }
+    .divider { border: 0; border-top: 1px solid var(--border); margin: 0; }
+    code { font-family: var(--font-mono); background: var(--fg-soft); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <header class="topnav">
+    <div class="container topnav-inner">
+      <span class="logo">RedirHub Competitive Analysis</span>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#competitors">Competitors</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#models">Models</a>
+        <a href="#positioning">Positioning</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <section class="section" data-od-id="hero">
+      <div class="container">
+        <p class="eyebrow">Market Research · August 2026</p>
+        <h1 style="font-size: var(--fs-h1); letter-spacing: -0.02em;">URL Redirect &amp; Link Management<br/>Competitive Landscape</h1>
+        <p class="lead" style="margin-top: var(--gap-md);">Pricing, positioning, and feature comparisons across the major players in the redirect and branded link space.</p>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="overview">
+      <div class="container">
+        <p class="eyebrow">Market at a Glance</p>
+        <h2 class="section-title">The Space</h2>
+        <div class="grid-4">
+          <div class="card stat">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">Major competitors tracked</div>
+          </div>
+          <div class="card stat">
+            <div class="stat-num">$0–$599<span class="stat-unit">/mo</span></div>
+            <div class="stat-label">Self-serve price range</div>
+          </div>
+          <div class="card stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Dominant pricing models</div>
+          </div>
+          <div class="card stat">
+            <div class="stat-num">90ms</div>
+            <div class="stat-label">RedirHub average latency</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="competitors">
+      <div class="container">
+        <p class="eyebrow">Competitor Profiles</p>
+        <h2 class="section-title">The Big Names</h2>
+
+        <div class="stack" style="gap: var(--gap-lg);">
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 22px;">Bitly</h3>
+              <span class="pill">Market Leader</span>
+            </div>
+            <p style="color: var(--muted); margin-bottom: var(--gap-md); max-width: 70ch;">The most recognized name in link shortening. Used by Fortune 500 companies, agencies, and creators. Strong brand trust — <code>bit.ly</code> links are universally trusted.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th>Price</th><th>Links/mo</th><th>Custom Domains</th><th>Best For</th></tr></thead>
+              <tbody>
+                <tr><td class="brand-col">Free</td><td class="num-col">$0</td><td class="num-col">10</td><td class="num-col">0</td><td>Testing only</td></tr>
+                <tr><td class="brand-col">Core</td><td class="num-col">$8/mo</td><td class="num-col">100</td><td class="num-col">1</td><td>Freelancers</td></tr>
+                <tr><td class="brand-col">Growth</td><td class="num-col">$32/mo</td><td class="num-col">500</td><td class="num-col">3</td><td>Small teams</td></tr>
+                <tr><td class="brand-col">Premium</td><td class="num-col">$249/mo</td><td class="num-col">3,000</td><td class="num-col">10</td><td>Mid-market</td></tr>
+                <tr><td class="brand-col">Enterprise</td><td class="num-col">$1,500–3,000+/mo</td><td class="num-col">Custom</td><td class="num-col">Unlimited</td><td>Large orgs</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-md);">⚠️ Per-link-created cap. Steep tier jumps — Growth to Premium is an 8x price increase. Annual avg SMB spend: $640/yr. Enterprise: $21,996/yr.</p>
+            <p style="margin-top: var(--gap-sm);"><a href="https://bitly.com/pages/pricing" target="_blank" style="color: var(--accent); font-size: 13px; font-weight: 600;">View pricing page ↗</a></p>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 22px;">Rebrandly</h3>
+              <span class="pill">Branded Links Specialist</span>
+            </div>
+            <p style="color: var(--muted); margin-bottom: var(--gap-md); max-width: 70ch;">Leading branded link platform. Used by Versace, PayPal. Focus on brand consistency and custom domains.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th>Price</th><th>Links/mo</th><th>Custom Domains</th><th>Best For</th></tr></thead>
+              <tbody>
+                <tr><td class="brand-col">Free</td><td class="num-col">$0</td><td class="num-col">10</td><td class="num-col">1</td><td>Individuals</td></tr>
+                <tr><td class="brand-col">Essentials</td><td class="num-col">$11/mo</td><td class="num-col">250</td><td class="num-col">2</td><td>Small biz</td></tr>
+                <tr><td class="brand-col">Professional</td><td class="num-col">$39/mo</td><td class="num-col">1,000</td><td class="num-col">5</td><td>Growing teams</td></tr>
+                <tr><td class="brand-col">Growth</td><td class="num-col">$99/mo</td><td class="num-col">10,000</td><td class="num-col">Unlimited</td><td>Mid-market</td></tr>
+                <tr><td class="brand-col">Enterprise</td><td class="num-col">Custom</td><td class="num-col">Custom</td><td class="num-col">Unlimited</td><td>Enterprise</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-md);">⚠️ Recently raised Professional plan 300% (from $8 to $32). Per-link cap + per-seat add-ons.</p>
+            <p style="margin-top: var(--gap-sm);"><a href="https://www.rebrandly.com/pricing" target="_blank" style="color: var(--accent); font-size: 13px; font-weight: 600;">View pricing page ↗</a></p>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 22px;">BL.INK</h3>
+              <span class="pill">Enterprise / Compliance</span>
+            </div>
+            <p style="color: var(--muted); margin-bottom: var(--gap-md); max-width: 70ch;">Enterprise-focused. GDPR compliance, regulated industries. No free tier — 21-day trial only.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th>Price</th><th>Links</th><th>Users</th><th>Domains</th></tr></thead>
+              <tbody>
+                <tr><td class="brand-col">Expert+</td><td class="num-col">$48/mo</td><td class="num-col">10,000</td><td class="num-col">1</td><td class="num-col">1</td></tr>
+                <tr><td class="brand-col">SMB</td><td class="num-col">$99/mo</td><td class="num-col">25,000</td><td class="num-col">5</td><td class="num-col">1</td></tr>
+                <tr><td class="brand-col">Team</td><td class="num-col">$299/mo</td><td class="num-col">100,000</td><td class="num-col">10</td><td class="num-col">5</td></tr>
+                <tr><td class="brand-col">Business</td><td class="num-col">$599/mo</td><td class="num-col">250,000</td><td class="num-col">25</td><td class="num-col">10+</td></tr>
+                <tr><td class="brand-col">Enterprise</td><td class="num-col">Custom</td><td class="num-col">Custom</td><td class="num-col">Custom</td><td class="num-col">Custom</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-md);">Per-link cap + click tracking limits per link. Most expensive option in the space.</p>
+            <p style="margin-top: var(--gap-sm);"><a href="https://www.bl.ink/pricing" target="_blank" style="color: var(--accent); font-size: 13px; font-weight: 600;">View pricing page ↗</a></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="midmarket">
+      <div class="container">
+        <p class="eyebrow">Mid-Market Competitors</p>
+        <h2 class="section-title">The Challengers</h2>
+
+        <div class="grid-3">
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 18px;">Short.io</h3>
+              <span class="tag tag-free">Developer-Friendly</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: var(--gap-sm);">Best free tier in the market. 1,000 branded links + 50K tracked clicks on free.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th class="num-col">Price</th></tr></thead>
+              <tbody>
+                <tr><td>Free</td><td class="num-col">$0</td></tr>
+                <tr><td>Hobby</td><td class="num-col">$5/mo</td></tr>
+                <tr><td>Pro</td><td class="num-col">$18/mo</td></tr>
+                <tr><td>Team</td><td class="num-col">$48/mo</td></tr>
+                <tr><td>Enterprise</td><td class="num-col">$148/mo</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-sm);">Cheapest paid entry ($5/mo). Hybrid model: link caps + click tracking limits.</p>
+            <p style="margin-top: var(--gap-sm);"><a href="https://short.io/pricing" target="_blank" style="color: var(--accent); font-size: 13px; font-weight: 600;">View pricing page ↗</a></p>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 18px;">redirect.pizza</h3>
+              <span class="tag tag-free">Pure Redirects</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: var(--gap-sm);">Domain redirects only — no branded short links. Simplest pricing. Used by Harvard, Red Bull, Palo Alto Networks.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th class="num-col">Price</th><th class="num-col">Hostnames</th></tr></thead>
+              <tbody>
+                <tr><td>Free</td><td class="num-col">$0</td><td class="num-col">5</td></tr>
+                <tr><td>Basic</td><td class="num-col">$14.95/mo</td><td class="num-col">15</td></tr>
+                <tr><td>Pro</td><td class="num-col">$55/mo</td><td class="num-col">100</td></tr>
+                <tr><td>Business</td><td class="num-col">$219/mo</td><td class="num-col">500</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-sm);">Priced by hostname count, not link count. Unlimited traffic on all paid plans.</p>
+            <p style="margin-top: var(--gap-sm);"><a href="https://redirect.pizza/pricing" target="_blank" style="color: var(--accent); font-size: 13px; font-weight: 600;">View pricing page ↗</a></p>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--gap-md); margin-bottom: var(--gap-md);">
+              <h3 style="font-size: 18px;">urllo</h3>
+              <span class="tag tag-free">Formerly EasyRedir</span>
+            </div>
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: var(--gap-sm);">Link management for IT/marketing teams. Redirect-focused with QR codes and branded links.</p>
+            <table class="ds-table">
+              <thead><tr><th>Plan</th><th class="num-col">Price</th></tr></thead>
+              <tbody>
+                <tr><td>Starter</td><td class="num-col">$14.95/mo</td></tr>
+                <tr><td>Growth</td><td class="num-col">Custom</td></tr>
+                <tr><td>Enterprise</td><td class="num-col">Custom</td></tr>
+              </tbody>
+            </table>
+            <p style="color: var(--muted); font-size: 13px; margin-top: var(--gap-sm);">Charges by hostname volume, not link count. No link cap.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="pricing">
+      <div class="container">
+        <p class="eyebrow">Head-to-Head</p>
+        <h2 class="section-title">Pricing Comparison</h2>
+        <div style="overflow-x: auto;">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Free Tier</th>
+                <th>Entry Paid</th>
+                <th>Mid Tier</th>
+                <th>Top Self-Serve</th>
+                <th>Pricing Model</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="brand-col"><a href="https://bitly.com/pages/pricing" target="_blank" style="color: var(--accent); font-weight: 600;">Bitly</a></td>
+                <td>10 links/mo</td>
+                <td class="num-col">$8/mo</td>
+                <td class="num-col">$32/mo</td>
+                <td class="num-col">$249/mo</td>
+                <td>Per-link cap</td>
+              </tr>
+              <tr>
+                <td class="brand-col"><a href="https://www.rebrandly.com/pricing" target="_blank" style="color: var(--accent); font-weight: 600;">Rebrandly</a></td>
+                <td>10 links/mo</td>
+                <td class="num-col">$11/mo</td>
+                <td class="num-col">$39/mo</td>
+                <td class="num-col">$99/mo</td>
+                <td>Per-link cap + seats</td>
+              </tr>
+              <tr>
+                <td class="brand-col"><a href="https://www.bl.ink/pricing" target="_blank" style="color: var(--accent); font-weight: 600;">BL.INK</a></td>
+                <td>None (trial)</td>
+                <td class="num-col">$48/mo</td>
+                <td class="num-col">$99/mo</td>
+                <td class="num-col">$599/mo</td>
+                <td>Per-link + click cap</td>
+              </tr>
+              <tr>
+                <td class="brand-col"><a href="https://short.io/pricing" target="_blank" style="color: var(--accent); font-weight: 600;">Short.io</a></td>
+                <td>1,000 links/mo</td>
+                <td class="num-col">$5/mo</td>
+                <td class="num-col">$18/mo</td>
+                <td class="num-col">$48/mo</td>
+                <td>Hybrid (links + clicks)</td>
+              </tr>
+              <tr>
+                <td class="brand-col"><a href="https://redirect.pizza/pricing" target="_blank" style="color: var(--accent); font-weight: 600;">redirect.pizza</a></td>
+                <td>5 hostnames</td>
+                <td class="num-col">$14.95/mo</td>
+                <td class="num-col">$55/mo</td>
+                <td class="num-col">$219/mo</td>
+                <td>Per-hostname</td>
+              </tr>
+              <tr>
+                <td class="brand-col">urllo</td>
+                <td>None</td>
+                <td class="num-col">$14.95/mo</td>
+                <td class="num-col">Custom</td>
+                <td class="num-col">Custom</td>
+                <td>Per-hostname</td>
+              </tr>
+              <tr class="highlight-row">
+                <td class="brand-col" style="color: var(--accent);">RedirHub</td>
+                <td>2 hostnames, 100 records</td>
+                <td class="num-col">Basic</td>
+                <td class="num-col">~$30/mo</td>
+                <td class="num-col">Enterprise</td>
+                <td>Per-hostname (unlimited records)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="models">
+      <div class="container">
+        <p class="eyebrow">Pricing Strategy</p>
+        <h2 class="section-title">How They Charge</h2>
+        <div class="grid-3">
+          <div class="card">
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: var(--gap-sm);">Per-Link Cap</div>
+            <p style="font-size: 14px; color: var(--muted); margin-bottom: var(--gap-md);">Pay more as you create more links. Monthly creation caps force tier upgrades.</p>
+            <p style="font-size: 14px; font-weight: 600;">Used by:</p>
+            <p style="font-size: 14px; color: var(--muted);">Bitly, Rebrandly, BL.INK</p>
+            <hr class="divider" style="margin: var(--gap-md) 0;" />
+            <p style="font-size: 13px; color: var(--muted);">Problem: Steep jumps between tiers. Going from Growth to Premium on Bitly is an 8x price increase just because you need more links.</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: var(--gap-sm);">Per-Hostname</div>
+            <p style="font-size: 14px; color: var(--muted); margin-bottom: var(--gap-md);">Pay by number of domains managed. Traffic volume usually unlimited.</p>
+            <p style="font-size: 14px; font-weight: 600;">Used by:</p>
+            <p style="font-size: 14px; color: var(--muted);">redirect.pizza, urllo, RedirHub</p>
+            <hr class="divider" style="margin: var(--gap-md) 0;" />
+            <p style="font-size: 13px; color: var(--muted);">Advantage: Scales with infrastructure you actually use. No artificial link caps. RedirHub differentiator: unlimited redirect records within each tier.</p>
+          </div>
+          <div class="card">
+            <div style="font-size: 32px; font-weight: 700; color: var(--accent); margin-bottom: var(--gap-sm);">Hybrid</div>
+            <p style="font-size: 14px; color: var(--muted); margin-bottom: var(--gap-md);">Mix of link caps, click tracking limits, feature gates, and per-seat charges.</p>
+            <p style="font-size: 14px; font-weight: 600;">Used by:</p>
+            <p style="font-size: 14px; color: var(--muted);">Short.io, BL.INK (click caps)</p>
+            <hr class="divider" style="margin: var(--gap-md) 0;" />
+            <p style="font-size: 13px; color: var(--muted);">Complex but flexible. Short.io is the most affordable hybrid option ($5/mo entry).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-od-id="positioning">
+      <div class="container">
+        <p class="eyebrow">RedirHub Positioning</p>
+        <h2 class="section-title">Where RedirHub Wins</h2>
+        <div class="grid-2">
+          <div class="card" style="border-color: var(--accent);">
+            <h3 style="font-size: 18px; margin-bottom: var(--gap-sm); color: var(--accent);">Competitive Advantages</h3>
+            <ul style="color: var(--muted); font-size: 14px; padding-left: 18px; margin: 0; line-height: 1.8;">
+              <li><strong>Unlimited redirect records</strong> — no per-link cap like Bitly/Rebrandly</li>
+              <li><strong>Unlimited team members</strong> included on all plans (others charge per-seat)</li>
+              <li><strong>90ms latency</strong> — claims 4x faster than Bitly</li>
+              <li><strong>100M+ redirects/day</strong> — proven at scale</li>
+              <li><strong>87% savings vs Bitly Premium</strong> ($300/yr vs $2,388/yr)</li>
+              <li><strong>Free tier usable for real work</strong> — 100K visits/mo vs Bitly's 10 links</li>
+              <li><strong>API + MCP server</strong> for automation</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 18px; margin-bottom: var(--gap-sm);">Market Opportunity</h3>
+            <div class="stack" style="gap: var(--gap-md);">
+              <p style="font-size: 14px; color: var(--muted);"><strong>Bitly's biggest weakness:</strong> Per-link pricing model punishes growing teams. Every competitor is positioning against it.</p>
+              <p style="font-size: 14px; color: var(--muted);"><strong>Price-sensitive segment:</strong> Freelancers, startups, and agencies are actively looking for alternatives. Multiple comparison articles highlight 87% cost savings.</p>
+              <p style="font-size: 14px; color: var(--muted);"><strong>Technical edge:</strong> 90ms latency + wildcard domains + bulk CSV import gives RedirHub an infrastructure story that pure link shorteners can't match.</p>
+              <p style="font-size: 14px; color: var(--muted);"><strong>Gaps to watch:</strong> Brand recognition (Bitly is synonymous with "short link"), compliance certifications (BL.INK wins here), and integration ecosystem (Bitly has HubSpot, Salesforce, Zapier).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pagefoot">
+    <div class="container row-between">
+      <span>RedirHub Competitive Analysis · August 2026</span>
+      <span class="meta">Research compiled from public pricing pages, G2, Capterra, and vendor sites</span>
+    </div>
+  </footer>
+</body>
+</html>
